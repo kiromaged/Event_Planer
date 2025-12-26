@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: image-registry.openshift-image-registry.svc:5000/kirollosmaged-dev/eventplanner-frontend:latest
+        image: image-registry.openshift-image-registry.svc:5000/eventplanner-prod/frontend:latest
         ports:
         - containerPort: 80
           name: http
