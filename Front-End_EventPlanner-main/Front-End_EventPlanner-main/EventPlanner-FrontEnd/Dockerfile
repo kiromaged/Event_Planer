@@ -27,6 +27,16 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Copy built app from builder
 COPY --from=builder /app/dist/EventPlanner-FrontEnd /usr/share/nginx/html
 
+# Create nginx cache directories with proper permissions for OpenShift
+RUN mkdir -p /var/cache/nginx/client_temp \
+    /var/cache/nginx/proxy_temp \
+    /var/cache/nginx/fastcgi_temp \
+    /var/cache/nginx/uwsgi_temp \
+    /var/cache/nginx/scgi_temp \
+    && chmod -R 777 /var/cache/nginx \
+    && chmod -R 777 /var/run \
+    && chmod -R 777 /usr/share/nginx/html
+
 # Create config script for runtime API URL injection
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
