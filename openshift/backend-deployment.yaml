@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: image-registry.openshift-image-registry.svc:5000/eventplanner-prod/backend:latest
+        image: image-registry.openshift-image-registry.svc:5000/kirollosmaged-dev/eventplanner-backend:latest
         ports:
         - containerPort: 8080
           name: http
