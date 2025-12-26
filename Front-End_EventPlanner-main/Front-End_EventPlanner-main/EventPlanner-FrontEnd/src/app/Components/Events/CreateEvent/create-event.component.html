@@ -1,0 +1,36 @@
+<div class="create-event-wrapper page-card">
+  <div class="card">
+    <h2>Create Event</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="spaced">
+      <div class="form-group">
+        <label class="form-label">Title</label>
+        <input class="form-control" formControlName="title" placeholder="Event title" />
+      </div>
+
+      <div class="row">
+        <div style="flex:1">
+          <label class="form-label">Date</label>
+          <input class="form-control" type="date" formControlName="date" />
+        </div>
+        <div style="width:140px">
+          <label class="form-label">Time</label>
+          <input class="form-control" type="time" formControlName="time" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Location</label>
+        <input class="form-control" formControlName="location" placeholder="Where?" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" formControlName="description" placeholder="Short description"></textarea>
+      </div>
+
+      <div class="row" style="justify-content:flex-end">
+        <button class="btn" type="submit" [disabled]="form.invalid || isLoading">{{ isLoading ? 'Creating...' : 'Create Event' }}</button>
+      </div>
+    </form>
+  </div>
+</div>

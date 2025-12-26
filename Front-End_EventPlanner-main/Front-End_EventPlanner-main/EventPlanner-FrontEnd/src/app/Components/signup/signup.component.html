@@ -1,0 +1,75 @@
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1 class="auth-title">Create Account</h1>
+            <p class="auth-subtitle">Join Event Planner today</p>
+        </div>
+
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <div class="error-feedback" *ngIf="errorMessage" style="margin-bottom: 20px;">
+                {{ errorMessage }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="name">Full Name</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="name"
+                    formControlName="name"
+                    placeholder="Your full name"
+                    [class.is-invalid]="signupForm.get('name')?.invalid && signupForm.get('name')?.touched"
+                >
+                <div class="error-feedback" *ngIf="signupForm.get('name')?.touched">
+                    <div *ngIf="signupForm.get('name')?.errors?.['required']">Please enter your name</div>
+                    <div *ngIf="signupForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">Email address</label>
+                <input 
+                    type="email" 
+                    class="form-control" 
+                    id="email"
+                    formControlName="email"
+                    placeholder="name@company.com"
+                    [class.is-invalid]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+                >
+                <div class="error-feedback" *ngIf="signupForm.get('email')?.touched">
+                    <div *ngIf="signupForm.get('email')?.errors?.['required']">Please enter your email</div>
+                    <div *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email address</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    id="password"
+                    formControlName="password"
+                    placeholder="Create a password"
+                    [class.is-invalid]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+                >
+                <div class="error-feedback" *ngIf="signupForm.get('password')?.touched">
+                    <div *ngIf="signupForm.get('password')?.errors?.['required']">Please choose a password</div>
+                    <div *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</div>
+                </div>
+            </div>
+
+            <button 
+                type="submit" 
+                class="submit-button"
+                [class.loading]="isLoading"
+                [disabled]="signupForm.invalid || isLoading"
+            >
+                Create account
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            Already have an account?<a routerLink="/login" class="auth-link">Sign in</a>
+        </div>
+    </div>
+</div>

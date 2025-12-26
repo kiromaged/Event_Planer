@@ -1,0 +1,34 @@
+<div class="app-shell">
+  <header class="app-header">
+    <div class="container">
+      <div class="header-left">
+        <a routerLink="/" class="brand">Event Planner</a>
+        <!-- Profile icon with user name -->
+        <ng-container *ngIf="auth.getCurrentUserProfileValue() as user">
+          <div class="profile-badge">
+            <div class="profile-icon">{{ getInitials(user.name) }}</div>
+            <span class="profile-name">{{ user.name }}</span>
+          </div>
+        </ng-container>
+      </div>
+      <nav class="nav">
+        <!-- Show auth-specific links when user is logged in -->
+        <ng-container *ngIf="auth.currentUser$ | async as user; else loggedOut">
+            <a routerLink="/events/create" routerLinkActive="active">Create Event</a>
+            <a routerLink="/events/mine" routerLinkActive="active">My Events</a>
+            <a routerLink="/events/invited" routerLinkActive="active">Invited</a>
+            <a routerLink="/search" routerLinkActive="active">Search</a>
+          <a class="auth-cta" (click)="auth.logout()">Logout ({{ user }})</a>
+        </ng-container>
+        <ng-template #loggedOut>
+          <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Login</a>
+          <a routerLink="/signup" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Sign up</a>
+        </ng-template>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>

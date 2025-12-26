@@ -1,0 +1,25 @@
+<div class="my-events page-card spaced">
+  <h2>My Organized Events</h2>
+  <div *ngIf="events.length === 0">You haven't organized any events yet.</div>
+  <div class="spaced">
+    <ng-container *ngFor="let e of events">
+      <div class="card">
+        <app-event-item [event]="e" [currentUserId]="currentUserId"></app-event-item>
+
+        <div class="attendees-list" style="margin-top:12px">
+          <strong>Attendees</strong>
+          <ul style="margin:8px 0 0 0; padding-left:18px;">
+            <li *ngFor="let a of e.attendees" style="margin-bottom:6px">
+              {{ users.getDisplayName(a.id) }} — <em>{{ a.status }}</em>
+            </li>
+          </ul>
+        </div>
+
+        <div class="actions row" style="margin-top:12px">
+          <button class="btn btn-ghost" (click)="invitePrompt(e)">Invite</button>
+          <button class="btn" (click)="deleteEvent(e)">Delete</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

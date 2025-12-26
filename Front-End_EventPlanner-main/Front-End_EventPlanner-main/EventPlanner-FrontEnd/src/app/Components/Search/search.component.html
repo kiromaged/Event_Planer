@@ -1,0 +1,31 @@
+<div class="search-wrapper">
+  <h2>Search events & tasks</h2>
+  <form [formGroup]="form" (ngSubmit)="search()">
+    <input formControlName="keyword" placeholder="Keyword (title or description)" />
+    <label>From: <input type="date" formControlName="from" /></label>
+    <label>To: <input type="date" formControlName="to" /></label>
+    <label>Role: 
+      <select formControlName="role">
+        <option value="any">Any</option>
+        <option value="organizer">Organizer</option>
+        <option value="attendee">Attendee</option>
+      </select>
+    </label>
+    <button type="submit" [disabled]="isLoading">Search</button>
+  </form>
+
+  <div *ngIf="isLoading">Searching...</div>
+
+  <div *ngIf="!isLoading && results.length === 0">No results</div>
+
+  <ul>
+    <li *ngFor="let r of results">
+      <div *ngIf="r.type === 'event'">
+        <strong>Event:</strong> {{ r.item.title }} — {{ r.item.date }}
+      </div>
+      <div *ngIf="r.type === 'task'">
+        <strong>Task:</strong> {{ r.item.title }} — {{ r.item.date || 'no date' }}
+      </div>
+    </li>
+  </ul>
+</div>

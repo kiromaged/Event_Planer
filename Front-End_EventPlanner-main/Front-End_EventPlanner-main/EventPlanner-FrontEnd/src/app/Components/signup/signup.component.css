@@ -1,0 +1,121 @@
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+}
+
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-header {
+    margin-bottom: 30px;
+}
+
+.auth-title {
+    margin: 0;
+    color: #2d3748;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.auth-subtitle {
+    color: #718096;
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+form {
+    margin-bottom: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    color: #4a5568;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-control.is-invalid {
+    border-color: #e53e3e;
+}
+
+.error-feedback {
+    color: #e53e3e;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+    background: #5a67d8;
+}
+
+.submit-button:disabled {
+    background: #cbd5e0;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.submit-button.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.auth-footer {
+    text-align: center;
+    color: #4a5568;
+}
+
+.auth-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 6px;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}

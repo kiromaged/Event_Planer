@@ -1,0 +1,5 @@
+.search-wrapper{max-width:800px;margin:18px auto}
+input,select{padding:8px;margin:6px 0;display:block}
+button{margin-top:8px}
+ul{list-style:none;padding:0}
+li{padding:8px;border-bottom:1px solid #eee}

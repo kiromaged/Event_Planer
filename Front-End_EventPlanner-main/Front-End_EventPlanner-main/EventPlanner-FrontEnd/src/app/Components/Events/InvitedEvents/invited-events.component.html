@@ -1,0 +1,21 @@
+<div class="invited-events page-card spaced">
+  <h2>Events You're Invited To</h2>
+  <div *ngIf="events.length === 0">You have no invitations.</div>
+
+  <div class="spaced">
+    <ng-container *ngFor="let e of events">
+      <div class="card">
+        <app-event-item [event]="e" [currentUserId]="currentUserId"></app-event-item>
+
+        <div class="attendance-controls" *ngIf="currentUserId" style="margin-top:12px">
+          <div class="current-status">Your status: <strong>{{ attendeeStatus(e) }}</strong></div>
+          <div class="status-buttons row" style="margin-top:8px">
+            <button class="btn" (click)="setStatus(e.id, 'Going')" [disabled]="isStatus(e, 'Going')">Going</button>
+            <button class="btn btn-ghost" (click)="setStatus(e.id, 'Maybe')" [disabled]="isStatus(e, 'Maybe')">Maybe</button>
+            <button class="btn btn-ghost" (click)="setStatus(e.id, 'Not Going')" [disabled]="isStatus(e, 'Not Going')">Not Going</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

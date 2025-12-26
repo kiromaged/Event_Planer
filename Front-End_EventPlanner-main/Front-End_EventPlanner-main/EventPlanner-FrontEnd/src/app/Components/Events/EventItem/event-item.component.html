@@ -1,0 +1,13 @@
+<div class="event-item">
+  <div class="event-main">
+    <div class="title">{{ event.title }}</div>
+    <div class="meta">{{ event.date }} {{ event.time ? ('@ ' + event.time) : '' }} — {{ event.location }}</div>
+    <div class="desc">{{ event.description }}</div>
+    <div class="organizer">Organized by: {{ organizerName }}</div>
+  </div>
+  <div class="event-badge">
+    <div *ngIf="role" class="badge" [ngClass]="role === 'Organizer' ? 'badge-organizer' : 'badge-attendee'">
+      {{ role }}
+    </div>
+  </div>
+</div>

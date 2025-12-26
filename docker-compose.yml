@@ -1,0 +1,125 @@
+services:
+  # MySQL Database Service with automatic schema initialization
+  mysql:
+    build:
+      context: ./Event-Planner-Backend-main/event_planer_DB
+      dockerfile: Dockerfile.mysql
+    container_name: eventplanner-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-Kiro#2003}
+      MYSQL_DATABASE: ${DB_NAME:-EventPlanner}
+      MYSQL_USER: ${DB_USER:-eventuser}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-eventpass123}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'false'
+    ports:
+      - "${DB_PORT:-3307}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - mysql_logs:/var/log/mysql
+    networks:
+      - eventplanner-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # Backend Service (Go + Gin)
+  backend:
+    build:
+      context: ./Event-Planner-Backend-main
+      dockerfile: Dockerfile
+    container_name: eventplanner-backend
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_HOST: ${DB_HOST:-mysql}
+      DB_PORT: 3306
+      DB_USER: ${DB_USER:-eventuser}
+      DB_PASSWORD: ${DB_PASSWORD:-eventpass123}
+      DB_NAME: ${DB_NAME:-EventPlanner}
+      JWT_SECRET: ${JWT_SECRET:-DB_PASSWORD}
+      GIN_MODE: ${GIN_MODE:-release}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+    volumes:
+      - backend_logs:/root/logs
+    networks:
+      - eventplanner-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "-O", "/dev/null", "http://localhost:8080/api/ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+
+  # Frontend Service (Angular + Nginx)
+  frontend:
+    build:
+      context: ./Front-End_EventPlanner-main/Front-End_EventPlanner-main/EventPlanner-FrontEnd
+      dockerfile: Dockerfile
+    container_name: eventplanner-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      BACKEND_URL: ${BACKEND_URL:-http://backend:8080}
+      NODE_ENV: ${NODE_ENV:-production}
+    ports:
+      - "4200:80"
+    volumes:
+      - frontend_logs:/var/log/nginx
+    networks:
+      - eventplanner-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 256M
+        reservations:
+          cpus: '0.5'
+          memory: 128M
+
+# Custom Docker network for internal communication
+networks:
+  eventplanner-network:
+    driver: bridge
+
+# Persistent volumes
+volumes:
+  mysql_data:
+    driver: local
+  mysql_logs:
+    driver: local
+  backend_logs:
+    driver: local
+  frontend_logs:
+    driver: local

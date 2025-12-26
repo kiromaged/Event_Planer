@@ -1,0 +1,21 @@
+# Dockerfile for MySQL with automatic schema initialization
+FROM mysql:8.0
+
+
+# Set environment variables
+ENV MYSQL_INITDB_SKIP_TZINFO=1 \
+    MYSQL_ROOT_HOST=% \
+    CHARSET=utf8mb4
+
+# Copy the database schema initialization script
+COPY event_planer_schema.sql /docker-entrypoint-initdb.d/01-schema.sql
+
+# Expose MySQL port
+EXPOSE 3306
+
+# Health check
+HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=5 \
+  CMD mysqladmin ping -h localhost --silent || exit 1
+
+# Default CMD inherited from mysql:8.0 image
+CMD ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]

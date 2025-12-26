@@ -1,0 +1,102 @@
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+}
+
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 {
+    margin: 0;
+    color: #2d3748;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.subtitle {
+    color: #718096;
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    color: #4a5568;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.error-message {
+    color: #e53e3e;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: #5a67d8;
+}
+
+.submit-btn:disabled {
+    background: #cbd5e0;
+    cursor: not-allowed;
+}
+
+.redirect-text {
+    text-align: center;
+    margin-top: 20px;
+    color: #4a5568;
+}
+
+.redirect-text a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.redirect-text a:hover {
+    text-decoration: underline;
+}

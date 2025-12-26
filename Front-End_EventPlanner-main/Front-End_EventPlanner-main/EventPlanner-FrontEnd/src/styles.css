@@ -1,0 +1,128 @@
+/* Global app styles */
+:root {
+	--bg-1: #f8fafc;
+	--text: #111827;
+	--muted: #6b7280;
+	--brand: #6366f1;
+	--brand-600: #4f46e5;
+	--accent: #06b6d4;
+	--card: #ffffff;
+	--glass: rgba(255,255,255,0.6);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+	margin: 0;
+	font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: var(--text);
+	background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
+}
+
+.app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+.app-header { background: transparent; padding: 12px 16px; }
+.app-header .container { display:flex; align-items:center; justify-content:space-between; max-width:1100px; margin:0 auto; }
+.brand { font-weight:700; color:var(--brand); text-decoration:none; font-size:1.125rem; }
+.nav a { margin-left:12px; color:var(--muted); text-decoration:none; font-weight:600; }
+.nav a:hover { color:var(--brand); }
+.app-main { flex:1; display:flex; align-items:center; justify-content:center; padding:24px; }
+
+/* Generic card style for panels and forms */
+.card {
+	background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.9));
+	border-radius: 12px;
+	box-shadow: 0 6px 18px rgba(17,24,39,0.06);
+	padding: 18px;
+	border: 1px solid rgba(15,23,42,0.04);
+}
+
+/* Form controls */
+input[type="text"], input[type="email"], input[type="password"], textarea, select {
+	width:100%;
+	padding:10px 12px;
+	border-radius:8px;
+	border:1px solid rgba(15,23,42,0.08);
+	background: #fff;
+	outline: none;
+	transition: box-shadow .15s ease, border-color .15s ease, transform .02s ease;
+	font-size:0.95rem;
+}
+input:focus, textarea:focus, select:focus {
+	box-shadow: 0 6px 18px rgba(99,102,241,0.08);
+	border-color: var(--brand-600);
+}
+
+/* Buttons */
+button, .btn {
+	display:inline-flex;
+	align-items:center;
+	gap:8px;
+	padding:8px 14px;
+	border-radius:10px;
+	border: none;
+	cursor: pointer;
+	font-weight:700;
+	color: white;
+	background: linear-gradient(90deg, var(--brand-600), var(--brand));
+	box-shadow: 0 6px 14px rgba(79,70,229,0.12);
+	transition: transform .06s ease, box-shadow .12s ease, opacity .12s ease;
+}
+button:hover, .btn:hover { transform: translateY(-1px); }
+button:active, .btn:active { transform: translateY(0); box-shadow: 0 4px 10px rgba(79,70,229,0.10); }
+
+.btn-ghost {
+	background: transparent;
+	color: var(--brand-600);
+	box-shadow: none;
+	border: 1px solid rgba(79,70,229,0.12);
+}
+
+/* Small utility helpers */
+.page-card { max-width:760px; margin: 0 auto; }
+.spaced { gap: 12px; display:flex; flex-direction:column; }
+.row { display:flex; gap:12px; align-items:center; }
+
+/* Improve link / cta look in header */
+.nav a, .nav .auth-cta { padding:6px 8px; border-radius:8px; }
+.nav .auth-cta { background: linear-gradient(90deg, rgba(99,102,241,0.12), rgba(99,102,241,0.06)); color:var(--brand-600); cursor:pointer; }
+
+/* small container helpers for pages */
+.page-center { width:100%; max-width:980px; margin:0 auto; }
+
+@media (max-width:640px){
+	.app-header .container { padding: 0 8px; }
+}
+
+/* Active nav link */
+.nav a.active {
+	color: var(--brand);
+	border-bottom: 2px solid var(--brand);
+	padding-bottom: 4px;
+}
+
+.nav a[aria-current="page"] {
+	font-weight: 700;
+}
+
+/* Auth pages (login / signup) */
+.auth-wrapper { width:100%; display:flex; align-items:center; justify-content:center; padding:28px 12px; }
+.auth-card { width:100%; max-width:480px; }
+.auth-header { margin-bottom:12px; text-align:left; }
+.auth-title { margin:0 0 6px 0; font-size:1.5rem; font-weight:800; color:var(--text); }
+.auth-subtitle { margin:0; color:var(--muted); font-size:0.95rem; }
+.form-group { margin-bottom:12px; }
+.form-label { display:block; margin-bottom:6px; color:var(--muted); font-weight:600; }
+.form-control { font-size:0.95rem; }
+.error-feedback { color:#dc2626; font-size:0.85rem; margin-top:6px; }
+.is-invalid { border-color:#dc2626 !important; box-shadow: 0 6px 14px rgba(220,38,38,0.06); }
+.submit-button { width:100%; margin-top:6px; }
+.auth-footer { margin-top:12px; color:var(--muted); }
+.auth-link { margin-left:6px; color:var(--brand-600); font-weight:700; text-decoration:none; }
+.auth-link:hover { text-decoration:underline; }
+
+/* Small responsive tweaks */
+@media (max-width:420px) {
+	.auth-card { padding: 12px; }
+}
