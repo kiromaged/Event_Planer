@@ -15,13 +15,18 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	// CORS for Angular dev server
+	// CORS for Angular dev server and OpenShift
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:4200"},
+		AllowOrigins:     []string{"http://localhost:4200", "https://*.openshiftapps.com"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
+		AllowOriginFunc: func(origin string) bool {
+			// Allow localhost and any OpenShift route
+			return origin == "http://localhost:4200" || 
+				   len(origin) > 0 && (origin[:8] == "https://" || origin[:7] == "http://")
+		},
 		MaxAge:           12 * time.Hour,
 	}))
 

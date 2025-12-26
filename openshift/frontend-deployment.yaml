@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: frontend-config
 data:
-  BACKEND_URL: "https://backend-YOUR_PROJECT.apps.YOUR_CLUSTER.com"
+  BACKEND_URL: "https://backend-kirollosmaged-dev.apps.rosa.ccs-c.q6i8.p3.openshiftapps.com"
   NODE_ENV: "production"
 ---
 apiVersion: apps/v1
@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: image-registry.openshift-image-registry.svc:5000/YOUR_PROJECT/eventplanner-frontend:latest
+        image: image-registry.openshift-image-registry.svc:5000/kirollosmaged-dev/eventplanner-frontend:latest
         ports:
         - containerPort: 80
           name: http
